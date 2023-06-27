@@ -6,36 +6,55 @@ import ProductDetails from "./screens/productDetails";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ProductContext from "./context";
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 function Bottomtabs() {
-  return(
+  return (
     <Tab.Navigator>
-      <Tab.Screen name="productListing" component={ProductListing}/>
-      <Tab.Screen name="favorites" component={Favorites}/>
+      <Tab.Screen
+        name="productListing"
+        options={{ title: "Product List" }}
+        component={ProductListing}
+      />
+      <Tab.Screen
+        name="favorites"
+        component={Favorites}
+        options={{ title: "Favorites" }}
+      />
     </Tab.Navigator>
-  )
+  );
 }
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
+    <ProductContext>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
 
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="bottomTabs" component={Bottomtabs} />
-          <Stack.Screen name="productDetails" component={ProductDetails} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="bottomTabs"
+              component={Bottomtabs}
+            />
+            <Stack.Screen
+              name="productDetails"
+              options={{ title: "Product Details" }}
+              component={ProductDetails}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </ProductContext>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
 });
