@@ -4,32 +4,32 @@
 
 import { createContext, useEffect, useState } from "react";
 
-const Context = createContext(null);
-
-
+export const Context = createContext(null);
 
 const ProductContext = ({ children }) => {
   // List of Products
   const [products, setProducts] = useState([]);
-  
-  
-  useEffect(() =>{
 
-    async function getProductsFromApi(){
-        const apiRes = await fetch('https://dummyjson.com/products')
-        const finalResult = await apiRes.json()
+  //Loading state
+  const [Loading, setLoading] = useState(false)
 
-        if (finalResult) {
-            setProducts(finalResult.products)          
-        }
+  useEffect(() => {
+    setLoading(true)
+    async function getProductsFromApi() {
+      const apiRes = await fetch("https://dummyjson.com/products");
+      const finalResult = await apiRes.json();
+
+      if (finalResult) {
+        setLoading(false)
+        setProducts(finalResult.products);
+      }
     }
 
-    getProductsFromApi()
-}, [])
+    getProductsFromApi();
+  }, []);
 
-console.log(products);
 
-  return <Context.Provider value={{ products }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ products, Loading }}>{children}</Context.Provider>;
 };
 
 export default ProductContext;
