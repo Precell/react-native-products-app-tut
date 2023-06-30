@@ -12,6 +12,24 @@ const ProductContext = ({ children }) => {
 
   //Loading state
   const [Loading, setLoading] = useState(false)
+  // Favorite Items
+  const [favoriteItems, setFavoriteItems] = useState([])
+
+  const addToFavorites = (productId, reason)=>{
+    let cpyFavoriteItems = [...favoriteItems]
+    const index = cpyFavoriteItems.findIndex(item=>item.id === productId)
+
+    if(index === -1){
+      const getCurrentProjectItem = products.find(item=>item.id === productId)
+      cpyFavoriteItems.push({
+        title:getCurrentProjectItem.title,
+        id: productId,
+        reason
+      })
+    }
+    setFavoriteItems(cpyFavoriteItems)
+
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -28,8 +46,8 @@ const ProductContext = ({ children }) => {
     getProductsFromApi();
   }, []);
 
-
-  return <Context.Provider value={{ products, Loading }}>{children}</Context.Provider>;
+  console.log(favoriteItems);
+  return <Context.Provider value={{ products, Loading, addToFavorites, favoriteItems }}>{children}</Context.Provider>;
 };
 
 export default ProductContext;

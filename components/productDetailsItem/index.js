@@ -1,12 +1,32 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 
-export default function ProductDetailsItem(){
+export default function ProductDetailsItem({productDetailsData}){
     
 
     return(
-        <View>
-            <Text>Product Details Item</Text>
+        <View style={styles.container}>
+            <Text style={styles.textStyle}>{productDetailsData.title}</Text>
+            <Text style={styles.textStyle}>{productDetailsData.description}</Text>
+            <Text style={styles.textStyle}>{productDetailsData.price}</Text>
+            <Text style={styles.textStyle}>{productDetailsData.rating}</Text>
+            <Text style={styles.textStyle}>{productDetailsData.category}</Text>
         </View>
     )
 }
+
+const styles= StyleSheet.create({
+    container :{
+        padding:10,
+        paddingHorizontal:15,
+        borderWidth:1,
+        margin:10,
+        borderColor:'#88da9e'
+    },
+    textStyle:{
+        color:'#ffff',
+        fontSize:20,
+        paddingBottom:12,
+
+    }
+})

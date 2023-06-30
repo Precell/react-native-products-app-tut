@@ -35,7 +35,17 @@ export default function App() {
         <StatusBar style="auto" />
 
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator
+          
+          screenOptions={{
+            headerStyle:{
+              backgroundColor:'#ffff'
+            },
+            contentStyle:{
+              backgroundColor: '#220577dd'
+            }
+          }}
+          >
             <Stack.Screen
               options={{ headerShown: false }}
               name="bottomTabs"
